@@ -33,7 +33,7 @@ return user
 
   const loggeduser=GetCurrentUser();
   if(loggeduser){
-  console.log(loggeduser[0])
+  // console.log(loggeduser[0])
 
   }
   return (

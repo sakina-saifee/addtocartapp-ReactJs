@@ -1,17 +1,62 @@
-import React from 'react'
-import {Link} from 'react-router-dom';
+import React,{useEffect, useState} from 'react'
+import {Link, useNavigate} from 'react-router-dom';
 import './Navbar.css'; 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import {auth, db} from '../firebaseConfig/Firebase';
+import {collection, getDocs, query, where} from 'firebase/firestore';
+import AddProduct from './AddProduct';
 
 const Navbar = () => {
+  
+  function GetCurrentUser(){
+    const [user, setUser]=useState('');
+    const usersCollectionREf=collection(db,"users")
+
+useEffect(()=>{
+  auth.onAuthStateChanged(userlogged=>{
+    if(userlogged){
+      const getUsers=async()=>{
+        const q=query(collection(db,"users"),where("uid","==",userlogged.uid))
+          // console.log(q);
+          const data=await getDocs(q);
+          setUser(data.docs.map((doc)=>({...doc.data(),id:doc.id})))
+      }
+      getUsers();
+    }else{
+      setUser(null);
+    }
+  })
+},[])
+
+return user
+
+  }
+
+  const loggeduser=GetCurrentUser();
+  if(loggeduser){
+  // console.log(loggeduser)
+
+  }
+
+  const navigate=useNavigate();
+
+  function handleLogout(){
+    auth.signOut().then(()=>{
+      navigate("/login");
+    })
+  }
+  
+  
   return (
-    <nav>
-      <Link to="/"><button>Home</button></Link>
+    <>
+  <div className='navbar'>
+  {!loggeduser && <nav>
+          <Link to="/"><button>Home</button></Link>
       <Link to="/signup"><button>Register</button></Link>
       <Link to="/login"><button>Login</button></Link>
-    
-    <Link to="/cart">
+
+      <Link to="/cart">
     <div className='cart-btn'>
       {/* <img src={ShoppingCartIcon} alt="no-img"/> */}
      <button className='carticon'><ShoppingCartIcon/></button> 
@@ -19,12 +64,47 @@ const Navbar = () => {
     </div>
     </Link>
 
-      <Link to="/userprofile">
+    <Link to="/userprofile">
     < AccountCircleIcon className="profile-icon"></AccountCircleIcon>
    
     </Link>
+
+        </nav>}
+
+        {loggeduser && 
+        
+        <nav>
+           <Link to="/"><button>Home</button></Link>
+           <Link to="/addproduct"><button>Sell</button></Link>
+     
+
+          <div className='cart-btn'>
+          <button className='carticon'><ShoppingCartIcon/></button> 
+          <span className='cart-icon-css-number'>{loggeduser[0].CartValue}</span>
+        
+          </div>
+          <Link to="/userprofile">
+    < AccountCircleIcon className="profile-icon"></AccountCircleIcon>
+   
+    </Link>
+
+    <button className='logout-btn' onClick={handleLogout}>Logout</button>
+        </nav>
+        }
+  </div>
+
+<div className='product-types'>
+  <a href="/product-type/mobiles"><button>Mobiles</button></a>
+  <a href="/product-type/laptops"><button>Laptops</button></a>
+  <a href="/product-type/cameras"><button>Cameras</button></a>
+  <a href="/product-type/shoes"><button>Shoes</button></a>
+</div>
+
+       
     
-    </nav>
+</>
+
+  
   )
 }
 

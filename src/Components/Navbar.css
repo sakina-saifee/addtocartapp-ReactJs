@@ -51,3 +51,39 @@ flex-direction: column;
     right: -22px
 
 }
+
+.logout-btn{
+    background-color: rgb(255,176,29);
+    margin: 20px 0px;
+    border: none;
+    color: white;
+    font-size:20px;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.css-i4bv87-MuiSvgIcon-root{
+font-size: 2.5rem !important;
+}
+
+.product-types {
+    background-color: rgb(255,176,29);
+    display: flex;
+    justify-content: center;
+}
+
+.product-types button{
+    border:none;
+   margin-left: 26px;
+   border: 3px solid black;
+   border-radius: 5px;
+   background-color: black;
+   color: white;
+   margin: 8px;
+  
+}
+.product-types button:hover{
+    color: black;
+    background-color: white;
+}
