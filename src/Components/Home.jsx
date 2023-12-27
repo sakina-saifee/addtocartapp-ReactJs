@@ -4,7 +4,8 @@ import Products from "./Products";
 import Banner from "./Banner";
 import {auth, db} from '../firebaseConfig/Firebase';
 import {collection, getDocs, query, where} from 'firebase/firestore';
-
+import ProductSlider from "./Some-Product_Component/ProductSlider";
+import "./Some-Product_Component/Sliderproduct.css"
 const Home = () => {
   
   function GetCurrentUser(){
@@ -41,6 +42,8 @@ return user
       <Navbar />
       <Banner/>
       <Products />
+      <div className="slider-head"><p>Limited Time Deals</p></div>
+      <ProductSlider type={"Mobile"}/>
     </>
   );
 };

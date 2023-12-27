@@ -1,0 +1,16 @@
+.prod-head{
+    font-weight: 100;
+    font-size: 20px;
+}
+
+.addtocartbtn{
+      background-color: rgb(255,176,29);
+    margin: 20px 0px;
+    border: none;
+    color: white;
+    font-size:20px;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 6px;
+}
+

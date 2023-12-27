@@ -10,6 +10,7 @@ import Profile from './Components/Profile';
 import { ToastContainer } from 'react-toastify';
 import AddProduct from './Components/AddProduct';
 import AllProducts from './Components/Some-Product_Component/AllProducts'
+import SpecificProductPage from './Components/Some-Product_Component/SpecificProductPage'
 function App() {
   return (
  <>
@@ -28,6 +29,7 @@ function App() {
  <Route exact path="/product-type/laptops" element={<AllProducts type={"laptop"}/>}/>
  <Route exact path="/product-type/cameras" element={<AllProducts type={"camera"}/>}/>
  <Route exact path="/product-type/shoes" element={<AllProducts type={"shoes"}/>}/>
+ <Route exact path="/product/:id/:productType" element={<SpecificProductPage/>}/>
 
  <Route  path="*" element={<PgFOF/>}/>
 

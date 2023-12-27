@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 const AddProduct = () => {
 
+// console.log("add producc", props);
   function GetCurrentUser(){
     const [user, setUser]=useState('');
     const usersCollectionREf=collection(db,"users")
@@ -73,7 +74,7 @@ return user
 
   const handleAddProduct=(e)=>{
 e.preventDefault();
-const stoargeRef=ref(storage, `products-images/${productType.toUpperCase()}`)
+const stoargeRef=ref(storage, `products-images/${productType.toUpperCase()}/${productTitle}`)
 //  console.log(stoargeRef._location.path)
 uploadBytes(stoargeRef, productImage).then(()=>{
   getDownloadURL(stoargeRef).then(url=>{

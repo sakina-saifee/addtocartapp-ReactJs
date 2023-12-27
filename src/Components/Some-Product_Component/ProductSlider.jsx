@@ -8,10 +8,13 @@ import {db} from '../../firebaseConfig/Firebase';
 import 'react-toastify/dist/ReactToastify.css';
 import {  toast } from 'react-toastify';
 import AddProduct from '../AddProduct';
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import SliderProductCard from './SliderProductCard';
 
-const AllProducts = (props) => {
- console.log(props.type);
- const [products, setProducts]=useState([]);
+
+const ProductSlider = (props) => {
+     const [products, setProducts]=useState([]);
 
  useEffect(()=>{
     const getProducts=()=>{
@@ -33,32 +36,36 @@ const AllProducts = (props) => {
     }
     getProducts();
  },[])
+const responsive = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 4
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1
+  }
+};
+  return (
+    <div>
+    <Carousel responsive={responsive}>
+{products.map((prod)=>{
 
- console.log("produtcs", products)
-    return (
-        <>
-        <div className='allproductspage'>
-            <Navbar/>
-            <div className='heading'>
-                <p>Top Results for {props.type}</p>
-            </div>
+   return (<SliderProductCard key={prod.id} product={prod}/>);
+})}
+</Carousel>
 
-            <div className='allProductContainer'>
-             {products?.map((product)=>{
-              {console.log("hello", product)}
-               return( <ProductContainer
-                
-                key={product.id}
-                product={product}
-                
-                />);
-                // return (<AddProduct  product={product}/>);
-                   
-             })}
-            </div>
-        </div>
-        </>
-    )
+</div>
+  )
 }
 
-export default AllProducts;
+export default ProductSlider
